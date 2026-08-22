@@ -9,4 +9,6 @@ void render() {
   printf(" %c | %c | %c \n", casilla4, casilla5, casilla6);
   printf("---|---|---\n");
   printf(" %c | %c | %c \n", casilla7, casilla8, casilla9);
+
+  printf("\nJugador actual: %c\n", jugador_actual);
 }
