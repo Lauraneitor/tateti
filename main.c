@@ -3,5 +3,6 @@
 
 int main() {
   do render();
-  while (!update());
+  while (update());
+  render();
 }

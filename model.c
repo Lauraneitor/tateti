@@ -10,3 +10,4 @@ char casilla7 = ' ';
 char casilla8 = ' ';
 char casilla9 = ' ';
 char jugador_actual = 'X';
+char ganador = ' ';
