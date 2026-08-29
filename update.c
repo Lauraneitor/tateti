@@ -88,6 +88,11 @@ bool update() {
   } else if (casilla3 != ' ' && casilla3 == casilla5 && casilla5 == casilla7) {
     ganador = jugador_actual;
     return false;
+  } else if (casilla1 != ' ' && casilla2 != ' ' && casilla3 != ' ' &&
+             casilla4 != ' ' && casilla5 != ' ' && casilla6 != ' ' &&
+             casilla7 != ' ' && casilla8 != ' ' && casilla9 != ' ') {
+    ganador = '-';
+    return false;
   }
 
   if (jugador_actual == 'X') {
