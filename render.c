@@ -10,5 +10,11 @@ void render() {
   printf("---|---|---\n");
   printf(" %c | %c | %c \n", casilla7, casilla8, casilla9);
 
-  printf("\nJugador actual: %c\n", jugador_actual);
+  if (ganador == ' ') {
+    printf("\nJugador actual: %c\n", jugador_actual);
+  } else if (ganador == '-') {
+    printf("\nEmpate!\n");
+  } else {
+    printf("\nGanador: %c\n", ganador);
+  }
 }
