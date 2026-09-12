@@ -12,62 +12,39 @@ void cambiar_jugador() {
   }
 }
 
-bool jugar(char entrada) {
-  if ('1' == entrada) {
-    if (casilla1 == ' ') {
-      casilla1 = jugador_actual;
-    } else {
-      return true;
-    }
-  } else if ('2' == entrada) {
-    if (casilla2 == ' ') {
-      casilla2 = jugador_actual;
-    } else {
-      return true;
-    }
-  } else if ('3' == entrada) {
-    if (casilla3 == ' ') {
-      casilla3 = jugador_actual;
-    } else {
-      return true;
-    }
-  } else if ('4' == entrada) {
-    if (casilla4 == ' ') {
-      casilla4 = jugador_actual;
-    } else {
-      return true;
-    }
-  } else if ('5' == entrada) {
-    if (casilla5 == ' ') {
-      casilla5 = jugador_actual;
-    } else {
-      return true;
-    }
-  } else if ('6' == entrada) {
-    if (casilla6 == ' ') {
-      casilla6 = jugador_actual;
-    } else {
-      return true;
-    }
-  } else if ('7' == entrada) {
-    if (casilla7 == ' ') {
-      casilla7 = jugador_actual;
-    } else {
-      return true;
-    }
-  } else if ('8' == entrada) {
-    if (casilla8 == ' ') {
-      casilla8 = jugador_actual;
-    } else {
-      return true;
-    }
-  } else if ('9' == entrada) {
-    if (casilla9 == ' ') {
-      casilla9 = jugador_actual;
-    } else {
-      return true;
-    }
+#define VALIDA true
+#define INVALIDA false
+
+bool jugar_casilla(char* casilla) {
+  if (*casilla == ' ') {
+    *casilla = jugador_actual;
+  } else {
+    return INVALIDA;
   }
+  return VALIDA;
+}
+
+bool jugar(char casilla) {
+  if ('1' == casilla) {
+    return jugar_casilla(&casilla1);
+  } else if ('2' == casilla) {
+    return jugar_casilla(&casilla2);
+  } else if ('3' == casilla) {
+    return jugar_casilla(&casilla3);
+  } else if ('4' == casilla) {
+    return jugar_casilla(&casilla4);
+  } else if ('5' == casilla) {
+    return jugar_casilla(&casilla5);
+  } else if ('6' == casilla) {
+    return jugar_casilla(&casilla6);
+  } else if ('7' == casilla) {
+    return jugar_casilla(&casilla7);
+  } else if ('8' == casilla) {
+    return jugar_casilla(&casilla8);
+  } else if ('9' == casilla) {
+    return jugar_casilla(&casilla9);
+  }
+  return INVALIDA;
 }
 
 bool hay_ganador() {
@@ -111,14 +88,19 @@ bool hay_empate() {
   }
 }
 
+#define CONTINUAR_JUEGO true
 #define FIN_JUEGO false
 
 bool update() {
   char entrada;
   scanf(" %c", &entrada);
+  if (entrada == '0') {
+    return FIN_JUEGO;
+  }
 
-  // FIX: resolver superpociciones de casillas
-  jugar(entrada);
+  if (jugar(entrada) == INVALIDA) {
+    return CONTINUAR_JUEGO;
+  }
 
   if (hay_ganador() || hay_empate()) {
     return FIN_JUEGO;
@@ -126,5 +108,5 @@ bool update() {
 
   cambiar_jugador();
 
-  return '0' != entrada;
+  return CONTINUAR_JUEGO;
 }
