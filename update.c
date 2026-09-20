@@ -12,37 +12,40 @@ void cambiar_jugador() {
   }
 }
 
+char* seleccionar_casilla(char jugada) {
+  if ('1' == jugada) {
+    return (&casilla1);
+  } else if ('2' == jugada) {
+    return (&casilla2);
+  } else if ('3' == jugada) {
+    return (&casilla3);
+  } else if ('4' == jugada) {
+    return (&casilla4);
+  } else if ('5' == jugada) {
+    return (&casilla5);
+  } else if ('6' == jugada) {
+    return (&casilla6);
+  } else if ('7' == jugada) {
+    return (&casilla7);
+  } else if ('8' == jugada) {
+    return (&casilla8);
+  } else if ('9' == jugada) {
+    return (&casilla9);
+  }
+  return NULL;
+}
+
 #define VALIDA true
 #define INVALIDA false
 
-bool jugar_casilla(char* casilla) {
-  if (*casilla == ' ') {
-    *casilla = jugador_actual;
-  } else {
+bool intentar_jugar(char jugada) {
+  char* casilla = seleccionar_casilla(jugada);
+  if (casilla == NULL) {
     return INVALIDA;
   }
-  return VALIDA;
-}
-
-bool jugar(char casilla) {
-  if ('1' == casilla) {
-    return jugar_casilla(&casilla1);
-  } else if ('2' == casilla) {
-    return jugar_casilla(&casilla2);
-  } else if ('3' == casilla) {
-    return jugar_casilla(&casilla3);
-  } else if ('4' == casilla) {
-    return jugar_casilla(&casilla4);
-  } else if ('5' == casilla) {
-    return jugar_casilla(&casilla5);
-  } else if ('6' == casilla) {
-    return jugar_casilla(&casilla6);
-  } else if ('7' == casilla) {
-    return jugar_casilla(&casilla7);
-  } else if ('8' == casilla) {
-    return jugar_casilla(&casilla8);
-  } else if ('9' == casilla) {
-    return jugar_casilla(&casilla9);
+  if (*casilla == ' ') {
+    *casilla = jugador_actual;
+    return VALIDA;
   }
   return INVALIDA;
 }
@@ -89,17 +92,18 @@ bool hay_empate() {
 }
 
 #define CONTINUAR_JUEGO true
+#define SALTEAR_JUGADA true
 #define FIN_JUEGO false
 
 bool update() {
-  char entrada;
-  scanf(" %c", &entrada);
-  if (entrada == '0') {
+  char jugada;
+  scanf(" %c", &jugada);
+  if (jugada == '0') {
     return FIN_JUEGO;
   }
 
-  if (jugar(entrada) == INVALIDA) {
-    return CONTINUAR_JUEGO;
+  if (intentar_jugar(jugada) == INVALIDA) {
+    return SALTEAR_JUGADA;
   }
 
   if (hay_ganador() || hay_empate()) {
