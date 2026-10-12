@@ -12,67 +12,52 @@ void cambiar_jugador() {
   }
 }
 
-char* seleccionar_casilla(char jugada) {
-  if ('1' == jugada) {
-    return (&casilla1);
-  } else if ('2' == jugada) {
-    return (&casilla2);
-  } else if ('3' == jugada) {
-    return (&casilla3);
-  } else if ('4' == jugada) {
-    return (&casilla4);
-  } else if ('5' == jugada) {
-    return (&casilla5);
-  } else if ('6' == jugada) {
-    return (&casilla6);
-  } else if ('7' == jugada) {
-    return (&casilla7);
-  } else if ('8' == jugada) {
-    return (&casilla8);
-  } else if ('9' == jugada) {
-    return (&casilla9);
-  }
-  return NULL;
-}
-
 #define VALIDA true
 #define INVALIDA false
 
 bool intentar_jugar(char jugada) {
-  char* casilla = seleccionar_casilla(jugada);
-  if (casilla == NULL) {
+  int indice = jugada - '1';
+  if (indice < 0 || indice > 8) {
     return INVALIDA;
   }
-  if (*casilla == ' ') {
-    *casilla = jugador_actual;
+  if (casillas[indice] == ' ') {
+    casillas[indice] = jugador_actual;
     return VALIDA;
   }
   return INVALIDA;
 }
 
 bool hay_ganador() {
-  if (casilla1 != ' ' && casilla1 == casilla2 && casilla2 == casilla3) {
+  if (casillas[0] != ' ' && casillas[0] == casillas[1] &&
+      casillas[1] == casillas[2]) {
     ganador = jugador_actual;
     return true;
-  } else if (casilla4 != ' ' && casilla4 == casilla5 && casilla5 == casilla6) {
+  } else if (casillas[3] != ' ' && casillas[3] == casillas[4] &&
+             casillas[4] == casillas[5]) {
     ganador = jugador_actual;
     return true;
-  } else if (casilla7 != ' ' && casilla7 == casilla8 && casilla8 == casilla9) {
+  } else if (casillas[6] != ' ' && casillas[6] == casillas[7] &&
+             casillas[7] == casillas[8]) {
     ganador = jugador_actual;
     return true;
-  } else if (casilla1 != ' ' && casilla1 == casilla4 && casilla4 == casilla7) {
+  } else if (casillas[0] != ' ' && casillas[0] == casillas[3] &&
+             casillas[3] == casillas[6]) {
     ganador = jugador_actual;
     return true;
-  } else if (casilla2 != ' ' && casilla2 == casilla5 && casilla5 == casilla8) {
+  } else if (casillas[1] != ' ' && casillas[1] == casillas[4] &&
+             casillas[4] == casillas[7]) {
     ganador = jugador_actual;
     return true;
-  } else if (casilla3 != ' ' && casilla3 == casilla6 && casilla6 == casilla9) {
+  } else if (casillas[2] != ' ' && casillas[2] == casillas[5] &&
+             casillas[5] == casillas[8]) {
     ganador = jugador_actual;
     return true;
-  } else if (casilla1 != ' ' && casilla1 == casilla5 && casilla5 == casilla9) {
+  } else if (casillas[0] != ' ' && casillas[0] == casillas[4] &&
+             casillas[4] == casillas[8]) {
     ganador = jugador_actual;
     return true;
-  } else if (casilla3 != ' ' && casilla3 == casilla5 && casilla5 == casilla7) {
+  } else if (casillas[2] != ' ' && casillas[2] == casillas[4] &&
+             casillas[4] == casillas[6]) {
     ganador = jugador_actual;
     return true;
   } else {
@@ -81,9 +66,9 @@ bool hay_ganador() {
 }
 
 bool hay_empate() {
-  if (casilla1 != ' ' && casilla2 != ' ' && casilla3 != ' ' &&
-      casilla4 != ' ' && casilla5 != ' ' && casilla6 != ' ' &&
-      casilla7 != ' ' && casilla8 != ' ' && casilla9 != ' ') {
+  if (casillas[0] != ' ' && casillas[1] != ' ' && casillas[2] != ' ' &&
+      casillas[3] != ' ' && casillas[4] != ' ' && casillas[5] != ' ' &&
+      casillas[6] != ' ' && casillas[7] != ' ' && casillas[8] != ' ') {
     ganador = '-';
     return true;
   } else {
