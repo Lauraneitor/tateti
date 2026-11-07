@@ -28,52 +28,28 @@ bool intentar_jugar(char jugada) {
 }
 
 bool hay_ganador() {
-  if (casillas[0] != ' ' && casillas[0] == casillas[1] &&
-      casillas[1] == casillas[2]) {
-    ganador = jugador_actual;
-    return true;
-  } else if (casillas[3] != ' ' && casillas[3] == casillas[4] &&
-             casillas[4] == casillas[5]) {
-    ganador = jugador_actual;
-    return true;
-  } else if (casillas[6] != ' ' && casillas[6] == casillas[7] &&
-             casillas[7] == casillas[8]) {
-    ganador = jugador_actual;
-    return true;
-  } else if (casillas[0] != ' ' && casillas[0] == casillas[3] &&
-             casillas[3] == casillas[6]) {
-    ganador = jugador_actual;
-    return true;
-  } else if (casillas[1] != ' ' && casillas[1] == casillas[4] &&
-             casillas[4] == casillas[7]) {
-    ganador = jugador_actual;
-    return true;
-  } else if (casillas[2] != ' ' && casillas[2] == casillas[5] &&
-             casillas[5] == casillas[8]) {
-    ganador = jugador_actual;
-    return true;
-  } else if (casillas[0] != ' ' && casillas[0] == casillas[4] &&
-             casillas[4] == casillas[8]) {
-    ganador = jugador_actual;
-    return true;
-  } else if (casillas[2] != ' ' && casillas[2] == casillas[4] &&
-             casillas[4] == casillas[6]) {
-    ganador = jugador_actual;
-    return true;
-  } else {
-    return false;
+  for (int i = 0; i < 8; i++) {
+    int a = COMBINACIONES_GANADORAS[i][0];
+    int b = COMBINACIONES_GANADORAS[i][1];
+    int c = COMBINACIONES_GANADORAS[i][2];
+
+    if (casillas[a] != ' ' && casillas[a] == casillas[b] &&
+        casillas[b] == casillas[c]) {
+      ganador = jugador_actual;
+      return true;
+    }
   }
+  return false;
 }
 
 bool hay_empate() {
-  if (casillas[0] != ' ' && casillas[1] != ' ' && casillas[2] != ' ' &&
-      casillas[3] != ' ' && casillas[4] != ' ' && casillas[5] != ' ' &&
-      casillas[6] != ' ' && casillas[7] != ' ' && casillas[8] != ' ') {
-    ganador = '-';
-    return true;
-  } else {
-    return false;
+  for (int i = 0; i < 9; i++) {
+    if (casillas[i] == ' ') {
+      return false;
+    }
   }
+  ganador = '-';
+  return true;
 }
 
 #define CONTINUAR_JUEGO true
