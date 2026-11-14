@@ -1,14 +1,13 @@
 #include <stdbool.h>
-#include <stdlib.h>
-#include <windows.h>
+#include <stdio.h>
 
 #include "model.c"
 
 void cambiar_jugador() {
-  if (jugador_actual == 'X') {
-    jugador_actual = 'O';
+  if (modelo.jugador_actual == 'X') {
+    modelo.jugador_actual = 'O';
   } else {
-    jugador_actual = 'X';
+    modelo.jugador_actual = 'X';
   }
 }
 
@@ -20,8 +19,8 @@ bool intentar_jugar(char jugada) {
   if (indice < 0 || indice > 8) {
     return INVALIDA;
   }
-  if (casillas[indice] == ' ') {
-    casillas[indice] = jugador_actual;
+  if (modelo.casillas[indice] == ' ') {
+    modelo.casillas[indice] = modelo.jugador_actual;
     return VALIDA;
   }
   return INVALIDA;
@@ -33,9 +32,9 @@ bool hay_ganador() {
     int b = COMBINACIONES_GANADORAS[i][1];
     int c = COMBINACIONES_GANADORAS[i][2];
 
-    if (casillas[a] != ' ' && casillas[a] == casillas[b] &&
-        casillas[b] == casillas[c]) {
-      ganador = jugador_actual;
+    if (modelo.casillas[a] != ' ' && modelo.casillas[a] == modelo.casillas[b] &&
+        modelo.casillas[b] == modelo.casillas[c]) {
+      modelo.ganador = modelo.jugador_actual;
       return true;
     }
   }
@@ -44,11 +43,11 @@ bool hay_ganador() {
 
 bool hay_empate() {
   for (int i = 0; i < 9; i++) {
-    if (casillas[i] == ' ') {
+    if (modelo.casillas[i] == ' ') {
       return false;
     }
   }
-  ganador = '-';
+  modelo.ganador = '-';
   return true;
 }
 
@@ -57,8 +56,7 @@ bool hay_empate() {
 #define FIN_JUEGO false
 
 bool update() {
-  char jugada;
-  scanf(" %c", &jugada);
+  char jugada = getchar();
   if (jugada == '0') {
     return FIN_JUEGO;
   }

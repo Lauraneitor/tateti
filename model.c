@@ -5,6 +5,15 @@ char COMBINACIONES_GANADORAS[8][3] = {
     {0, 3, 6}, {1, 4, 7}, {2, 5, 8},  // Columnas
     {0, 4, 8}, {2, 4, 6}              // Diagonales
 };
-char casillas[9] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
-char jugador_actual = 'X';
-char ganador = ' ';
+
+struct GameState {
+  char casillas[9];
+  char jugador_actual;
+  char ganador;
+};
+
+struct GameState modelo = {
+    .casillas = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+    .jugador_actual = 'X',
+    .ganador = ' ',
+};
